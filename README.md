@@ -30,7 +30,7 @@ npm test
 ### 使用cnpm 国内源
 
 ~~~
-npm install -g cnpm
+npm install -g cnpm --registry=https://registry.npm.taobao.org
 cnpm install
 ~~~
 
