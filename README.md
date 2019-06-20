@@ -34,6 +34,30 @@ npm install -g cnpm
 cnpm install
 ~~~
 
+### nginx 配置
+
+~~~
+server {
+    listen       80;
+    server_name  xxxxxx;
+
+    root   xxxxxx;
+    gzip on;
+    gzip_static on;
+    gzip_min_length 1k;
+    gzip_buffers 16 64k;
+    gzip_http_version 1.1;
+    gzip_comp_level 9;
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary on;
+    
+    location / {
+        index  index.html index.htm;
+        try_files $uri $uri/ /index.html$is_args$args;
+    }
+}
+~~~
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 # vue-admin
 
