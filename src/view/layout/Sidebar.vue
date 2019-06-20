@@ -1,5 +1,5 @@
 <template>
-    <el-menu background-color="#324157" text-color="#bfcbd9" mode="vertical" theme="dark" unique-opened :default-active="$route.path" :collapse="opened">
+    <el-menu background-color="#324157" text-color="#bfcbd9" mode="vertical" theme="dark" unique-opened :default-active="$route.path" :collapse="isOpened">
       <sidebar-item :routes='permission_routers'></sidebar-item>
     </el-menu>
 </template>
@@ -28,7 +28,7 @@ export default {
       let that = this
       setTimeout(() => {
         that.isOpened = !this.opened
-      }, 200)
+      }, 1000)
     }
   },
   computed: {

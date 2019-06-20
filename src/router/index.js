@@ -58,20 +58,6 @@ export const asyncRouterMap = [
         name: '简述'
       }
     ]
-  }, {
-    path: '/excel',
-    component: layout,
-    redirect: '/excel/download',
-    name: 'excel',
-    icon: 'icon-Excel',
-    noDropdown: false,
-    children: [
-      {
-        path: 'download',
-        component: _import('excel/index'),
-        name: 'excel导出'
-      }
-    ]
   }
 ]
 

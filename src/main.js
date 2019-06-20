@@ -7,16 +7,16 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 // 懒加载
-import VueLazyload from 'vue-lazyload'
+// import VueLazyload from 'vue-lazyload'
 import router from './router'
 
 // 过滤器
-import * as filters from './filters' // global filters
+// import * as filters from './filters' // global filters
 
 // register global utility filters.
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
-})
+// Object.keys(filters).forEach(key => {
+//   Vue.filter(key, filters[key])
+// })
 
 // vuex
 import store from './store'
@@ -26,9 +26,9 @@ import './permission'
 
 Vue.use(ElementUI)
 
-Vue.use(VueLazyload, {
-  loading: require('common/image/default.png')
-})
+// Vue.use(VueLazyload, {
+//   loading: require('common/image/default.png')
+// })
 
 Vue.config.productionTip = false
 
