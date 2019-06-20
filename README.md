@@ -49,27 +49,6 @@ static
 test
 ```
 
-### 接口返回参数定义
-
-~~~
-{
-	"data": []
-	"code": 0,
-	"message": "",
-	"time": "1512112715",
-	"_ut": "0.02982"
-}
-~~~
-
-~~~
-{
-	"code": 1000,
-	"message": "token非法",
-	"time": "1512112715",
-	"_ut": "0.02982"
-}
-~~~
-
 ### vue各种自定义组件库
 
 - [组件提取库](https://github.com/missxiaolin/vue-assembly)
