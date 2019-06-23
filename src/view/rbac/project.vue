@@ -6,12 +6,12 @@
                 <el-row>
                     <el-col :span="8">
                         <el-form-item label="秘钥：" prop="key">
-                        <el-input v-model="searchForm.key"></el-input>
+                            <el-input v-model="searchForm.key"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
                         <el-form-item label="名称：" prop="name">
-                        <el-input v-model="searchForm.name"></el-input>
+                            <el-input v-model="searchForm.name"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
