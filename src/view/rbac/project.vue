@@ -154,6 +154,9 @@ export default {
         projectAdd (id) {
             let self = this
             this.ruleForm.id = id
+            this.ruleForm.name = ""
+            this.ruleForm.key = ""
+            this.ruleForm.comment = ""
             if(id){
                 self.projectInfo(id)
             }
@@ -189,10 +192,10 @@ export default {
         // 添加项目
         async add () {
             let res = await addProject(this.ruleForm)
-                if (res.code == ERR_OK) {
-                    this.fetchData()
-                    this.dialogTableVisible = false
-                }
+            if (res.code == ERR_OK) {
+                this.fetchData()
+                this.dialogTableVisible = false
+            }
         },
         async del (id) {
             let self = this

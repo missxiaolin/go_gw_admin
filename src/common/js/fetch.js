@@ -36,14 +36,7 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     let res = response.data
-    // token
-    // if (res.code != 0) {
-    //   Message({
-    //     message: res.message,
-    //     type: 'error',
-    //     duration: 5 * 1000
-    //   })
-    // }
+    
     // if (res.code == error.ERROR_TOKEN_EXPIRE || res.code == error.ERROR_TOKEN_ILLEGAL) {
     //   MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '提示', { // token过期情况
     //     confirmButtonText: '重新登录',
@@ -55,6 +48,14 @@ service.interceptors.response.use(
     // } else if (res.code == error.ERROR_AUTHORITY) { // 权限
     //   routes.push({name: '401'})
     // }
+
+    if (res.code != 0) {
+      Message({
+        message: res.message,
+        type: 'error',
+        duration: 5 * 1000
+      })
+    }
     return Promise.resolve(res)
   },
   error => {
