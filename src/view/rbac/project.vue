@@ -1,12 +1,32 @@
 <template>
     <div class="app-container">
-        <div :className="'sub-navbar'">
-            <template>
-                <el-button style="margin-left: 10px;" type="primary" @click="projectAdd(0)">新建项目</el-button>
-            </template>
-        </div>
-
         <div class="routes-main-container" style="margin-top:30px;">
+
+            <el-form ref="searchForm" :model="searchForm" label-width="80px">
+                <el-row>
+                    <el-col :span="8">
+                        <el-form-item label="秘钥：" prop="key">
+                        <el-input v-model="searchForm.key"></el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                        <el-form-item label="名称：" prop="name">
+                        <el-input v-model="searchForm.name"></el-input>
+                        </el-form-item>
+                    </el-col>
+                </el-row>
+                <el-row type="flex" justify="center">
+                <el-button type="info" @click="resetForm('searchForm')">重置</el-button>
+                <el-button type="primary" @click="submitForm('searchForm')">搜索</el-button>
+                </el-row>
+            </el-form>
+
+            <div :className="'sub-navbar'" style="margin-bottom:30px;">
+                <template>
+                    <el-button style="margin-left: 10px;" type="primary" @click="projectAdd(0)">新建项目</el-button>
+                </template>
+            </div>
+
             <el-table :data="list" v-loading.body="listLoading" element-loading-text="Loading" border fit
                       highlight-current-row>
                 <el-table-column align="center" label='ID'>
@@ -102,7 +122,9 @@ export default {
         page: 1,
         searchForm: {
             offset:0,
-            limit: 5
+            limit: 5,
+            key: "",
+            name: ""
         },
         dialogTableVisible: false,
         rules: {
@@ -218,6 +240,9 @@ export default {
                     }
                 })
             })
+        },
+        submitForm () {
+            this.fetchData()
         }
     }
 }
