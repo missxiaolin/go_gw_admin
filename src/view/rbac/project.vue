@@ -128,21 +128,21 @@ export default {
         },
         dialogTableVisible: false,
         rules: {
-        name: [{
-            required: true,
-            message: '请输入项目名称',
-            trigger: 'blur'
-        }],
-        key: [{
-            required: true,
-            message: '请输入项目秘钥',
-            trigger: 'blur'
-        }],
-        comment: {
-            required: true,
-            message: '项目介绍必填',
-            trigger: 'blur'
-        }
+            name: [{
+                required: true,
+                message: '请输入项目名称',
+                trigger: 'blur'
+            }],
+            key: [{
+                required: true,
+                message: '请输入项目秘钥',
+                trigger: 'blur'
+            }],
+            comment: {
+                required: true,
+                message: '项目介绍必填',
+                trigger: 'blur'
+            }
         },
         ruleForm: {
             id: 0,
