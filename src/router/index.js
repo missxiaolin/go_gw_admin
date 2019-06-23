@@ -49,13 +49,27 @@ export const asyncRouterMap = [
     path: '/introduction',
     component: layout,
     redirect: '/introduction/index',
-    icon: 'icon-ren',
+    icon: 'icon-xuanti-neirongjianshu',
     noDropdown: true,
     children: [
       {
         path: 'index',
         component: _import('introduction/index'),
         name: '简述'
+      }
+    ]
+  }, {
+    path: '/rbac',
+    component: layout,
+    redirect: '/rbac/project',
+    icon: 'icon-quanxian',
+    noDropdown: false,
+    name: '权限模块',
+    children: [
+      {
+        path: 'project',
+        component: _import('rbac/project'),
+        name: '项目管理'
       }
     ]
   }
