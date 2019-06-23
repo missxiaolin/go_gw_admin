@@ -31,8 +31,8 @@ export function addProject (data) {
 export function delProject (data) {
     return fetch({
       url: '/project/delete',
-      method: 'get',
-      params: data
+      method: 'post',
+      data: data
     })
 }
 
