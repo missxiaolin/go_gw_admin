@@ -70,6 +70,10 @@ export const asyncRouterMap = [
         path: 'project',
         component: _import('rbac/project'),
         name: '项目管理'
+      }, {
+        path: 'role',
+        component: _import('rbac/role'),
+        name: '角色管理'
       }
     ]
   }
