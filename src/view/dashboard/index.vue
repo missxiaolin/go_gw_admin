@@ -6,11 +6,12 @@
       </pan-thumb>
       <github></github>
       <div class="info-container">
-        <span class="display_name">小林</span>
+        <span class="display_name">北瑟</span>
         <span style='font-size:20px;padding-top:20px;display:inline-block;'>admin</span>
       </div>
     </div>
     <div>
+      logo
       <img class='emptyGif' src="http://oni42o7kl.bkt.clouddn.com/0e03b7da-db9e-4819-ba10-9016ddfdaed3">
     </div>
   </div>
