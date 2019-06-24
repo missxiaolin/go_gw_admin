@@ -86,30 +86,6 @@
                 </el-pagination>
             </el-row>
         </div>
-
-        <el-dialog title="添加角色" :visible.sync="dialogTableVisible" :modal-append-to-body="false">
-            <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
-                <el-form-item label="角色名称" prop="name">
-                    <el-input name="name" type="text" v-model="ruleForm.name" placeholder="角色名称"></el-input>
-                </el-form-item>
-
-                <el-form-item label="角色介绍" prop="comment">
-                    <el-input name="comment" type="text" v-model="ruleForm.comment" placeholder="角色介绍"></el-input>
-                </el-form-item>
-
-                <el-form-item label="角色状态" prop="status">
-                    <el-radio-group v-model="ruleForm.status">
-                        <el-radio :label="1">可用</el-radio>
-                        <el-radio :label="0">禁用</el-radio>
-                    </el-radio-group>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
-                    <el-button @click="resetForm('ruleForm')">重置</el-button>
-                </el-form-item>
-            </el-form>
-        </el-dialog>
     </div>
 </template>
 
@@ -121,37 +97,18 @@ import { Message } from 'element-ui'
 export default {
     'name': 'role-lists',
     data () {
-    return {
-        list: [],
-        listLoading: true,
-        total: 0, // table数据总条数
-        page: 1,
-        searchForm: {
-            offset:0,
-            limit: 5,
-            name: "",
-            status: null
-        },
-        dialogTableVisible: false,
-        rules: {
-            name: [{
-                required: true,
-                message: '请输入角色名称',
-                trigger: 'blur'
-            }],
-            comment: {
-                required: true,
-                message: '角色介绍必填',
-                trigger: 'blur'
-            }
-        },
-        ruleForm: {
-            id: 0,
-            name: '',
-            comment: '',
-            status: 1
+        return {
+            list: [],
+            listLoading: true,
+            total: 0, // table数据总条数
+            page: 1,
+            searchForm: {
+                offset:0,
+                limit: 5,
+                name: "",
+                status: null
+            },
         }
-    }
     },
     created () {
         this.fetchData()
@@ -161,7 +118,6 @@ export default {
         async fetchData () {
             let res = await roleList(this.searchForm)
             if (res.code == ERR_OK) {
-                console.log(res)
                 this.list = res.data.items
                 this.total = res.data.count
                 this.listLoading = false
@@ -184,50 +140,13 @@ export default {
         },
         // 添加角色
         roleAdd (id) {
-            let self = this
-            this.ruleForm.id = id
-            this.ruleForm.name = ""
-            this.ruleForm.comment = ""
-            this.ruleForm.status = 1
-            if(id){
-                self.roleInfo(id)
-            }
-            this.dialogTableVisible = true
-        },
-        // 获取角色详情
-        async roleInfo (id) {
-            let data = {
-                id: id
-            }
-            let res = await infoRole(data)
-            if (res.code == ERR_OK) {
-                // 合并
-                Object.assign(this.ruleForm, res.data)
-            }
-        },
-        // 添加角色验证
-        onSubmit (formName) {
-            let self = this
-            this.$refs[formName].validate((valid) => {
-                if (valid) {
-                self.add()
-                } else {
-                    console.log('error submit!!')
-                    return false
-                }
+            this.$router.push({
+                path: `/rbac/role/add/${id}`
             })
         },
         // 重置
         resetForm (formName) {
             this.$refs[formName].resetFields()
-        },
-        // 添加角色
-        async add () {
-            let res = await addRole(this.ruleForm)
-            if (res.code == ERR_OK) {
-                this.fetchData()
-                this.dialogTableVisible = false
-            }
         },
         // 删除角色
         async del (id) {

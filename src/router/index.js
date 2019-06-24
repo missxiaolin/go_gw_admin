@@ -74,6 +74,11 @@ export const asyncRouterMap = [
         path: 'role',
         component: _import('rbac/role'),
         name: '角色管理'
+      }, {
+        path: 'role/add/:id',
+        component: _import('rbac/addRole'),
+        name: '角色添加',
+        hidden: true
       }
     ]
   }
