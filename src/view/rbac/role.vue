@@ -19,8 +19,8 @@
                     </el-col>
                 </el-row>
                 <el-row type="flex" justify="center">
-                <el-button type="info" @click="resetForm('searchForm')">重置</el-button>
-                <el-button type="primary" @click="submitForm('searchForm')">搜索</el-button>
+                    <el-button type="info" @click="resetForm('searchForm')">重置</el-button>
+                    <el-button type="primary" @click="submitForm('searchForm')">搜索</el-button>
                 </el-row>
             </el-form>
 
