@@ -47,3 +47,16 @@ export function infoProject (data) {
       params: data
     })
 }
+
+/**
+ * 获取项目树
+ * @param {*} data
+ */
+export function projectRouterList (data) {
+  return fetch({
+    url: '/project/router/list',
+    method: 'get',
+    params: data
+  })
+}
+
