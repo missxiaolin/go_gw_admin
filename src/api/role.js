@@ -59,3 +59,15 @@ export function roleStatus (data) {
       data: data
     })
 }
+
+/**
+ * 角色禁用启用
+ * @param {*} data
+ */
+export function roleRouterList (data) {
+  return fetch({
+    url: '/role/router/list',
+    method: 'get',
+    params: data
+  })
+}

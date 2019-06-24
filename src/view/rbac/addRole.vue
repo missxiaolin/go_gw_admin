@@ -18,11 +18,12 @@
 
             <el-form-item label="权限" prop="role_list">
                 <el-tree
+                    ref="tree"
                     :data="treeData"
                     node-key="name"
                     show-checkbox
                     :accordion="true"
-                    :default-checked-keys="[]"
+                    :default-checked-keys="checkedData"
                     :props="defaultProps">
                 </el-tree>
             </el-form-item>
@@ -36,7 +37,7 @@
 </template>
 
 <script>
-import { addRole, infoRole } from 'api/role'
+import { addRole, infoRole, roleRouterList } from 'api/role'
 import { projectRouterList } from 'api/project'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
@@ -62,13 +63,14 @@ export default {
                 name: '',
                 comment: '',
                 status: 1,
-                role_list: null
+                router_list: null
             },
             treeData: [],
             defaultProps: {
                 children: 'children',
                 label: 'name'
-            }
+            },
+            checkedData: []
         }
     },
     created () {
@@ -96,14 +98,32 @@ export default {
                 id: id
             }
             let res = await infoRole(data)
+            let resRouters = await roleRouterList(data)
             if (res.code == ERR_OK) {
                 // 合并
                 Object.assign(this.ruleForm, res.data)
             }
+            if (resRouters.code == ERR_OK) {
+                let routes = []
+                resRouters.data.forEach(function(val,index){
+                    routes.push(val.name)
+                })
+                this.checkedData = routes
+            }
         },
         // 添加角色验证
         onSubmit (formName) {
-            let self = this
+            let self = this,
+                routersData = this.$refs.tree.getCheckedNodes(),
+                routers = [];
+            if (routersData) {
+                routersData.forEach(function(val,index){
+                    if(!!val.route){
+                        routers.push(val.id)
+                    }
+                })
+            }
+            this.ruleForm.router_list = routers
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                 self.add()
