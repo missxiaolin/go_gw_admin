@@ -19,7 +19,7 @@ export function roleList (data) {
 export function addRole (data) {
     return fetch({
       url: '/role/save',
-      method: 'post',
+      method: 'get',
       data: data
     })
 }
