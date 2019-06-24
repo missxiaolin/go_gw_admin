@@ -16,6 +16,17 @@
                 </el-radio-group>
             </el-form-item>
 
+            <el-form-item label="权限" prop="role_list">
+                <el-tree
+                    :data="treeData"
+                    node-key="name"
+                    show-checkbox
+                    :accordion="true"
+                    :default-checked-keys="[]"
+                    :props="defaultProps">
+                </el-tree>
+            </el-form-item>
+
             <el-form-item>
                 <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -26,6 +37,7 @@
 
 <script>
 import { addRole, infoRole } from 'api/role'
+import { projectRouterList } from 'api/project'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 
@@ -49,7 +61,13 @@ export default {
                 id: 0,
                 name: '',
                 comment: '',
-                status: 1
+                status: 1,
+                role_list: null
+            },
+            treeData: [],
+            defaultProps: {
+                children: 'children',
+                label: 'name'
             }
         }
     },
@@ -59,9 +77,16 @@ export default {
             this.ruleForm.id = id
             this.roleInfo(id)
         }
+        this.treeDataInfo()
         
     },
     methods: {
+        async treeDataInfo () {
+            let res = await projectRouterList()
+            if (res.code == ERR_OK) {
+                this.treeData = res.data
+            }
+        },
         // 获取角色详情
         async roleInfo (id) {
             if(!id || id == 0 ){
@@ -105,3 +130,17 @@ export default {
     }
 }
 </script>
+
+<style>
+    .eboss-tree {
+        margin-top: 10px;
+        margin-right: 10px;
+        border-width: 1px;
+        border-style: solid;
+        border-color: rgb(220, 223, 230);
+        border-image: initial;
+        overflow: hidden;
+        border-radius: 4px;
+        padding: 10px;
+    }
+</style>
