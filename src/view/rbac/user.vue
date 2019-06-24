@@ -9,6 +9,11 @@
                             <el-input v-model="searchForm.name"></el-input>
                         </el-form-item>
                     </el-col>
+					<el-col :span="8">
+					    <el-form-item label="手机号：" prop="mobile">
+					        <el-input v-model="searchForm.mobile"></el-input>
+					    </el-form-item>
+					</el-col>
                     <el-col :span="8">
                         <el-form-item label="状态：" prop="status">
                             <el-select v-model="searchForm.status" placeholder="请选择状态" style="width:100%">
@@ -26,7 +31,7 @@
 
             <div :className="'sub-navbar'" style="margin-bottom:30px;">
                 <template>
-                    <el-button style="margin-left: 10px;" type="primary" @click="roleAdd(0)">新建角色</el-button>
+                    <el-button style="margin-left: 10px;" type="primary" @click="userAdd(0)">新增管理员</el-button>
                 </template>
             </div>
 
@@ -38,15 +43,15 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column label="角色名称" align="center">
+                <el-table-column label="管理员名称" align="center">
                     <template slot-scope="scope">
                         <span>{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
 
-                <el-table-column label="角色介绍" align="center">
+                <el-table-column label="管理员手机号" align="center">
                     <template slot-scope="scope">
-                        <span>{{scope.row.comment}}</span>
+                        <span>{{scope.row.mobile}}</span>
                     </template>
                 </el-table-column>
 
@@ -66,7 +71,7 @@
 
                 <el-table-column label="操作" min-width="120px" align="center">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="roleAdd(scope.row.id)">编辑</el-button>
+                        <el-button size="mini" @click="userAdd(scope.row.id)">编辑</el-button>
                         <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
                         <el-button size="mini" v-show="scope.row.status==0" type="success" @click="handleDisable(scope.$index, scope.row.id)">启用</el-button>
                         <el-button size="mini" v-show="scope.row.status==1" type="danger" @click="handleDisable(scope.$index, scope.row.id)">禁用</el-button>
@@ -90,7 +95,7 @@
 </template>
 
 <script>
-import { roleList, addRole, infoRole, delRole, roleStatus } from 'api/role'
+import { userList, addUser, infoUser, delUser, UserStatus } from 'api/user'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 
@@ -106,7 +111,8 @@ export default {
                 offset:0,
                 limit: 5,
                 name: "",
-                status: 1
+				mobile:"",
+                status: null
             },
         }
     },
@@ -116,7 +122,7 @@ export default {
     methods: {
         // 获取角色列表
         async fetchData () {
-            let res = await roleList(this.searchForm)
+            let res = await userList(this.searchForm)
             if (res.code == ERR_OK) {
                 this.list = res.data.items
                 this.total = res.data.count
@@ -138,10 +144,10 @@ export default {
             })
             this.fetchData()
         },
-        // 添加角色
-        roleAdd (id) {
+        // 添加管理员
+        userAdd (id) {
             this.$router.push({
-                path: `/rbac/role/add/${id}`
+                path: `/rbac/user/add/${id}`
             })
         },
         // 重置
@@ -159,7 +165,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(() => {
-                delRole(param).then(res => {
+                delUser(param).then(res => {
                     if (res.code == ERR_OK) {
                         this.$message({
                             type: 'success',
@@ -186,7 +192,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 self.listLoading = true
-                roleStatus(params).then(res => {
+                UserStatus(params).then(res => {
                     if (res.code == ERR_OK) {
                         self.list[index].status = !this.list[index].status ? 1 : 0
                         self.listLoading = false
