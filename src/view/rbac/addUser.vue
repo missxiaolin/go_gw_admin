@@ -5,6 +5,17 @@
                 <el-input name="name" type="text" v-model="ruleForm.name" placeholder="管理员名称"></el-input>
             </el-form-item>
 
+			<el-form-item label="角色名称" prop="role_id">
+			<el-select v-model="ruleForm.role_id" filterable placeholder="请选择">
+						<el-option
+						  v-for="item in options"
+						  :key="item.id"
+						  :label="item.name"
+						  :value="item.id">
+						</el-option>
+			</el-select>
+			</el-form-item>
+			
             <el-form-item label="管理员手机号" prop="mobile">
                 <el-input name="mobile" type="text" v-model="ruleForm.mobile" placeholder="管理员手机号"></el-input>
             </el-form-item>
@@ -30,6 +41,7 @@
 
 <script>
 import { addUser, infoUser } from 'api/user'
+import { roleList } from 'api/role'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 
@@ -47,15 +59,22 @@ export default {
                     required: false,
                     message: '请输入管理员手机号',
                     trigger: 'blur'
-                }
+                },
+				role_id: {
+				    required: false,
+				    message: '请选择角色',
+				    trigger: 'blur'
+				}
             },
             ruleForm: {
                 id: 0,
                 name: '',
                 mobile: '',
 				password: '',
+				role_id:'',
                 status: 1
-            }
+            },
+			options:{}
         }
     },
     created () {
@@ -64,9 +83,17 @@ export default {
             this.ruleForm.id = id
             this.UserInfo(id)
         }
-        
+        this.userList()
     },
     methods: {
+		// select项目数据
+		async userList () {
+		    let res = await roleList()
+		    if (res.code == ERR_OK) {
+				console.log(res.data)
+		        this.options = res.data.items
+		    }
+		},
         // 获取角色详情
         async UserInfo (id) {
             if(!id || id == 0 ){
