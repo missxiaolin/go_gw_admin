@@ -1,25 +1,22 @@
 <template>
     <div class="app-container">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
-            <el-form-item label="管理员名称" prop="name">
-                <el-input name="name" type="text" v-model="ruleForm.name" placeholder="管理员名称"></el-input>
+            <el-form-item label="小组名称" prop="name">
+                <el-input name="name" type="text" v-model="ruleForm.name" placeholder="小组名称"></el-input>
             </el-form-item>
-
-            <el-form-item label="管理员手机号" prop="mobile">
-                <el-input name="mobile" type="text" v-model="ruleForm.mobile" placeholder="管理员手机号"></el-input>
-            </el-form-item>
-
-			<el-form-item label="管理员密码" prop="password">
-			    <el-input name="password" type="text" v-model="ruleForm.password"  placeholder="管理员密码"></el-input>
-			</el-form-item>
 			
-            <el-form-item label="角色状态" prop="status">
-                <el-radio-group v-model="ruleForm.status">
-                    <el-radio :label="1">可用</el-radio>
-                    <el-radio :label="0">禁用</el-radio>
-                </el-radio-group>
-            </el-form-item>
-
+			<el-form-item label="项目名称" prop="project_id">
+		  <el-select v-model="ruleForm.project_id" filterable placeholder="请选择">
+			<el-option
+			  v-for="item in options"
+			  :key="item.id"
+			  :label="item.name"
+			  :value="item.id">
+			</el-option>
+		  </el-select>
+		  </el-form-item>
+		  
+			
             <el-form-item>
                 <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -29,7 +26,8 @@
 </template>
 
 <script>
-import { addUser, infoUser } from 'api/user'
+import { addGroup, infoGroup } from 'api/group'
+import { projectRouterList } from 'api/project'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 
@@ -40,42 +38,48 @@ export default {
             rules: {
                 name: [{
                     required: false,
-                    message: '请输入管理员名称',
+                    message: '请输入小组名称',
                     trigger: 'blur'
                 }],
-                mobile: {
+                project_id: {
                     required: false,
-                    message: '请输入管理员手机号',
+                    message: '请选择项目',
                     trigger: 'blur'
                 }
             },
             ruleForm: {
                 id: 0,
+                project_id: '',
                 name: '',
-                mobile: '',
-				password: '',
-                status: 1
-            }
+            },
+			options:{},
         }
     },
     created () {
         let id = this.$route.params.id
         if (id != 0) {
             this.ruleForm.id = id
-            this.UserInfo(id)
+            this.infoGroup(id)
         }
-        
+        this.projectInfo()
     },
     methods: {
+		// select项目数据
+		async projectInfo () {
+		    let res = await projectRouterList()
+		    if (res.code == ERR_OK) {
+		        this.options = res.data
+		    }
+		},
         // 获取角色详情
-        async UserInfo (id) {
+        async infoGroup (id) {
             if(!id || id == 0 ){
                 return
             }
             let data = {
                 id: id
             }
-            let res = await infoUser(data)
+            let res = await infoGroup(data)
             if (res.code == ERR_OK) {
                 // 合并
                 Object.assign(this.ruleForm, res.data)
@@ -100,10 +104,10 @@ export default {
         // 添加管理员
         async add () {
             console.log(this.ruleForm)
-            let res = await addUser(this.ruleForm)
+            let res = await addGroup(this.ruleForm)
             if (res.code == ERR_OK) {
                 this.$router.push({
-                    path: '/rbac/user'
+                    path: '/rbac/group'
                 })
             }
         }

@@ -88,7 +88,17 @@ export const asyncRouterMap = [
         component: _import('rbac/addUser'),
         name: '管理员添加',
         hidden: true
+      },{
+        path: 'group',
+        component: _import('rbac/group'),
+        name: '分组管理'
+      }, {
+        path: 'group/add/:id',
+        component: _import('rbac/addGroup'),
+        name: '分组添加',
+        hidden: true
       }
+			
     ]
   }
 ]
