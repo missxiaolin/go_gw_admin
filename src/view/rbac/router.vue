@@ -72,8 +72,6 @@
                     <template slot-scope="scope">
                         <el-button size="mini" @click="routeAdd(scope.row.id)">编辑</el-button>
                         <el-button size="mini" type="danger" @click="del(scope.row.id)">删除</el-button>
-                        <el-button size="mini" v-show="scope.row.status==0" type="success" @click="handleDisable(scope.$index, scope.row.id)">启用</el-button>
-                        <el-button size="mini" v-show="scope.row.status==1" type="danger" @click="handleDisable(scope.$index, scope.row.id)">禁用</el-button>
                     </template>
                 </el-table-column>
                 
@@ -136,14 +134,6 @@ export default {
                 this.listLoading = false
             }
         },
-        // 状态
-        stateFormat (row, column) {
-            if (row.status === 1) {
-                return '可用'
-            } else if (row.status === 0) {
-                return '禁用'
-            }
-        },
         // 分页
         handleCurrentChange (currentPage) {
             Object.assign(this.searchForm, {
@@ -185,31 +175,6 @@ export default {
         },
         submitForm () {
             this.fetchData()
-        },
-        // 禁用、启用
-        handleDisable (index, id) {
-            let self = this,
-                params = {
-                    id: id
-                },
-                title = self.list[index].status == 0 ? "启用" : "禁用"
-            this.$confirm(`此操作将永久${title}角色, 是否继续?`, '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(() => {
-                self.listLoading = true
-                UserStatus(params).then(res => {
-                    if (res.code == ERR_OK) {
-                        self.list[index].status = !this.list[index].status ? 1 : 0
-                        self.listLoading = false
-                        
-                    }else{
-                        Message(response.message)
-                    }
-                })
-            })
-            
         },
     }
 }
