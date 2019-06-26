@@ -6,7 +6,7 @@
             </el-form-item>
 
 			<el-form-item label="角色名称" prop="role_id">
-			<el-select v-model="ruleForm.role_id" filterable placeholder="请选择">
+			<el-select v-model="ruleForm.role_id" multiple placeholder="请选择">
 						<el-option
 						  v-for="item in options"
 						  :key="item.id"
@@ -15,6 +15,7 @@
 						</el-option>
 			</el-select>
 			</el-form-item>
+			
 			
             <el-form-item label="管理员手机号" prop="mobile">
                 <el-input name="mobile" type="text" v-model="ruleForm.mobile" placeholder="管理员手机号"></el-input>
