@@ -37,12 +37,12 @@ export default {
         return {
             rules: {
                 name: [{
-                    required: false,
+                    required: true,
                     message: '请输入小组名称',
                     trigger: 'blur'
                 }],
                 project_id: {
-                    required: false,
+                    required: true,
                     message: '请选择项目',
                     trigger: 'blur'
                 }

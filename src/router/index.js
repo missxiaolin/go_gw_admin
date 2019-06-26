@@ -99,11 +99,11 @@ export const asyncRouterMap = [
         hidden: true
       },{
         path: 'router',
-        component: _import('rbac/group'),
+        component: _import('rbac/router'),
         name: '路由管理'
       }, {
         path: 'router/add/:id',
-        component: _import('rbac/addGroup'),
+        component: _import('rbac/addRouter'),
         name: '路由添加',
         hidden: true
       }
