@@ -54,6 +54,8 @@
                     </template>
                 </el-table-column>
 
+				 <el-table-column prop="type" label="类型" align="center" :formatter="stateFormat"></el-table-column>
+				
                 <el-table-column label="创建时间" align="center">
                     <template slot-scope="scope">
                         <span>{{scope.row.created_at}}</span>
@@ -116,6 +118,15 @@ export default {
         this.fetchData()
     },
     methods: {
+		// 类型
+		stateFormat (row, column) {
+			console.log(row)
+		    if (row.type === 1) {
+		        return '接口路由'
+		    } else if (row.type === 0) {
+		        return '页面路由'
+		    }
+		},
         // 获取角色列表
         async fetchData () {
             let res = await routerList(this.searchForm)

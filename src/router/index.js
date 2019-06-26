@@ -77,7 +77,7 @@ export const asyncRouterMap = [
       }, {
         path: 'role/add/:id',
         component: _import('rbac/addRole'),
-        name: '角色',
+        name: '角色操作',
         hidden: true
       }, {
         path: 'user',
@@ -86,7 +86,7 @@ export const asyncRouterMap = [
       }, {
         path: 'user/add/:id',
         component: _import('rbac/addUser'),
-        name: '管理员添加',
+        name: '管理员操作',
         hidden: true
       },{
         path: 'group',
@@ -95,7 +95,7 @@ export const asyncRouterMap = [
       }, {
         path: 'group/add/:id',
         component: _import('rbac/addGroup'),
-        name: '分组添加',
+        name: '分组操作',
         hidden: true
       },{
         path: 'router',
@@ -104,7 +104,7 @@ export const asyncRouterMap = [
       }, {
         path: 'router/add/:id',
         component: _import('rbac/addRouter'),
-        name: '路由添加',
+        name: '路由操作',
         hidden: true
       }
 			
