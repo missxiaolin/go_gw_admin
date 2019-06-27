@@ -29,6 +29,7 @@ import Hamburger from 'base/Hamburger'
 import Levelbar from './Levelbar'
 import TabsView from './TabsView'
 import Screenfull from 'base/Screenfull'
+import { setToken } from 'common/js/cache'
 
 export default {
   data () {
@@ -42,7 +43,10 @@ export default {
       this.$store.dispatch('ToggleSideBar')
     },
     // 退出登录操作
-    logout () {}
+    logout () {
+      setToken('')
+      this.$router.push({ path: '/login' })
+    }
   },
   components: {
     Hamburger,
