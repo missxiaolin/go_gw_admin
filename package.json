@@ -1,7 +1,7 @@
 {
   "name": "admin",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Rbac Dashboard",
   "author": "xiaolin <462441355@qq.com>",
   "private": true,
   "scripts": {
