@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Proxy = require('static-web-proxy')
 const crypto = require('crypto')
 const path = require('path')
