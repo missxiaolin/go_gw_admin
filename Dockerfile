@@ -3,7 +3,6 @@ FROM node:10-alpine as builder
 WORKDIR /usr/src/build
 
 ADD package.json /usr/src/build
-ADD package-lock.json /usr/src/build
 RUN npm install
 
 COPY . /usr/src/build
