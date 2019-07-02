@@ -6,7 +6,7 @@ ADD package.json /usr/src/build
 RUN npm install
 
 COPY . /usr/src/build
-RUN npm run build
+RUN npm run-script build
 
 FROM node:10-alpine
 
