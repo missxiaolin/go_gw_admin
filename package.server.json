@@ -15,7 +15,6 @@
       "analyz": "NODE_ENV=production npm_config_report=true npm run build"
     },
     "dependencies": {
-      "dotenv": "^8.0.0",
       "static-web-proxy": "^1.2.2"
     },
     "devDependencies": {
