@@ -5,7 +5,7 @@ const path = require('path')
 const proxy = new Proxy({
   proxy: [
     {
-      host: process.env.API_HOST || rbac_api,
+      host: process.env.API_HOST || 'rbac_api',
       port: process.env.API_PORT || 9501,
       path: '/api/',
       targetPath: '/',
