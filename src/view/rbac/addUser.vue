@@ -4,7 +4,11 @@
             <el-form-item label="管理员名称" prop="name">
                 <el-input name="name" type="text" v-model="ruleForm.name" placeholder="管理员名称"></el-input>
             </el-form-item>
-
+			
+			<el-form-item label="唯一键" prop="key">
+                <el-input name="key" type="text" v-model="ruleForm.key" placeholder="唯一键"></el-input>
+            </el-form-item>
+			
 			<el-form-item label="角色名称" prop="role_id">
 			<el-select v-model="ruleForm.role_id" multiple filterable placeholder="请选择">
 						<el-option
