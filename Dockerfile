@@ -14,6 +14,8 @@ COPY --from=builder /usr/src/build/dist /usr/src/app/dist
 COPY --from=builder /usr/src/build/index.js /usr/src/app
 COPY --from=builder /usr/src/build/package.server.json /usr/src/app/package.json
 
+WORKDIR /usr/src/app
+
 RUN npm install
 
 ENTRYPOINT ["node","index"] 
