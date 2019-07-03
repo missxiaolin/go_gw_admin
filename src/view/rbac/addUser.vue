@@ -74,6 +74,7 @@ export default {
             ruleForm: {
                 id: 0,
                 name: '',
+				key: '',
                 mobile: '',
 				password: '',
 				role_id:'',
