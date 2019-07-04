@@ -58,57 +58,6 @@ export const asyncRouterMap = [
         name: '简述'
       }
     ]
-  }, {
-    path: '/rbac',
-    component: layout,
-    redirect: '/rbac/project',
-    icon: 'icon-quanxian',
-    noDropdown: false,
-    name: '权限模块',
-    children: [
-      {
-        path: 'project',
-        component: _import('rbac/project'),
-        name: '项目管理'
-      }, {
-        path: 'role',
-        component: _import('rbac/role'),
-        name: '角色管理'
-      }, {
-        path: 'role/add/:id',
-        component: _import('rbac/addRole'),
-        name: '角色操作',
-        hidden: true
-      }, {
-        path: 'user',
-        component: _import('rbac/user'),
-        name: '管理员管理'
-      }, {
-        path: 'user/add/:id',
-        component: _import('rbac/addUser'),
-        name: '管理员操作',
-        hidden: true
-      },{
-        path: 'group',
-        component: _import('rbac/group'),
-        name: '分组管理'
-      }, {
-        path: 'group/add/:id',
-        component: _import('rbac/addGroup'),
-        name: '分组操作',
-        hidden: true
-      },{
-        path: 'router',
-        component: _import('rbac/router'),
-        name: '路由管理'
-      }, {
-        path: 'router/add/:id',
-        component: _import('rbac/addRouter'),
-        name: '路由操作',
-        hidden: true
-      }
-			
-    ]
   }
 ]
 
