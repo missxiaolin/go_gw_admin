@@ -3,7 +3,7 @@ FROM node:10-alpine as builder
 WORKDIR /usr/src/build
 
 ADD package.json /usr/src/build
-RUN npm install
+RUN npm install -g cnpm --registry=https://registry.npm.taobao.org && cnpm install
 
 COPY . /usr/src/build
 RUN cp config/dev.env.example.js config/dev.env.js && npm run-script build
@@ -16,7 +16,7 @@ COPY --from=builder /usr/src/build/package.server.json /usr/src/app/package.json
 
 WORKDIR /usr/src/app
 
-RUN npm install
+RUN npm install -g cnpm --registry=https://registry.npm.taobao.org && cnpm install
 
 ENTRYPOINT ["node","index"] 
 EXPOSE 3000

@@ -5,8 +5,8 @@ const path = require('path')
 const proxy = new Proxy({
   proxy: [
     {
-      host: process.env.API_HOST || 'rbac_api',
-      port: process.env.API_PORT || 9501,
+      host: process.env.API_HOST || 'd3find_api',
+      port: process.env.API_PORT || 9503,
       path: '/api/',
       targetPath: '/',
     },

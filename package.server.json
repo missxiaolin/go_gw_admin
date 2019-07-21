@@ -1,7 +1,7 @@
 {
-    "name": "rbac-dashboard",
+    "name": "admin_merchant",
     "version": "1.0.0",
-    "description": "Rbac Dashboard",
+    "description": "Adnub Merchant",
     "author": "xiaolin <462441355@qq.com>",
     "private": true,
     "scripts": {
