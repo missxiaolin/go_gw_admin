@@ -1,18 +1,9 @@
 <template>
     <div class="app-container">
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
-			<!-- <el-form-item label="项目名称" prop="project_id">
-			<el-select v-model="ruleForm.project_id" filterable placeholder="请选择">
-						<el-option
-						  v-for="item in options"
-						  :key="item.id"
-						  :label="item.name"
-						  :value="item.id">
-						</el-option>
-			</el-select> -->
 			</el-form-item>
 			
-			<el-form-item label="图纸类型" prop="type">
+			<!-- <el-form-item label="图纸类型" prop="type">
 				 <el-select v-model="ruleForm.type" placeholder="请选择" multiple >
 					<el-option
 					  v-for="item in options"
@@ -21,18 +12,35 @@
 					  :value="item.value">
 					</el-option>
 				 </el-select>
-			</el-form-item>
-			
+			</el-form-item> -->
 			<el-form-item label="图纸材料" prop="material">
 			<el-select v-model="ruleForm.material" placeholder="请选择" multiple >
 			<el-option
-			v-for="item in options"
-			:key="item.value"
-			:label="item.label"
-			:value="item.value">
+			v-for="item in material"
+			:key="item.name"
+			:label="item.name"
+			:value="item.id">
 			</el-option>
 			</el-select>
 			</el-form-item>
+			
+
+			<el-form-item label="图纸类型" prop="type">
+			    <el-tree
+					@check-change="getChecked"
+					default-expand-all	
+					auto-expand-parent
+			        ref="tree"
+			        :data="drawingType"
+			        node-key="id"
+			        show-checkbox
+			        :accordion="true"
+			        :default-checked-keys="checkedData"
+			        :props="defaultProps" >
+			    </el-tree>
+			</el-form-item>
+			
+
 
             <el-form-item label="估价" prop="price">
                 <el-input name="price" type="text" v-model="ruleForm.price" placeholder="估价"></el-input>
@@ -75,6 +83,8 @@
 <script src="https://unpkg.com/qiniu-js@<version>/dist/qiniu.min.js"></script>
 <script>
 import { drawingSave,uploadToken } from 'api/drawing'
+import {drawingType} from 'api/drawingType'
+import {material} from 'api/material'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 
@@ -83,23 +93,20 @@ export default {
     'name': 'role-lists',
     data () {
         return {
+			drawingType: [],
+			defaultProps: {
+			    children: 'children',
+			    label: 'name'
+			},
+			checkedData: [],
 			postData:{},
-			fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
-			 
 			finish_time: '',
-			options: [{
-			  value: '1',
-			  label: '黄金糕'
-				}, {
-			  value: '2',
-			  label: '双皮奶'
-			}],
             rules: {
-				type: [{
+				/* type: [{
 				    required: true,
 				    message: '请选择类型',
 				    trigger: 'blur'
-				}],
+				}], */
 				material: [{
 					required: true,
 					message: '请选择材料',
@@ -127,8 +134,7 @@ export default {
 				type:'',
 				drawing:'',
             },
-			//options:{},
-			groupOption:{},
+			
         }
     },
     created () {
@@ -137,8 +143,14 @@ export default {
             this.ruleForm.id = id
         }
 		this.uploadtoken()
+		this.dwtype()
+		this.material()
     },
     methods: {
+		getChecked()
+		{
+			this.ruleForm.type = this.$refs.tree.getCheckedKeys()
+		},
 		handleAvatarSuccess(response, file, fileList)
 		{
 			console.log(response,file,fileList)
@@ -154,18 +166,28 @@ export default {
 			  // debugger
 			console.log(file)
 		},
-		//图片上传
-		handeImage(file, fileList) {
-			console.log(file, fileList)
+		//图纸分类
+		async dwtype()
+		{
+			var res = await drawingType()
+			if (res.code == ERR_OK) {
+			    this.drawingType = res.data
+				console.log(res)
+			}
 		},
-        handleRemove(file, fileList) {
-        console.log(file, fileList);
-		  },
-		handlePreview(file) {
-			console.log(file);
+		//图纸材料
+		async material()
+		{
+			var res = await material()
+			
+			if (res.code == ERR_OK) {
+			    this.material = res.data
+				console.log(res)
+			}
 		},
         // 添加路由验证
         onSubmit (formName) {
+			
             let self = this
             this.$refs[formName].validate((valid) => {
                 if (valid) {
@@ -182,8 +204,10 @@ export default {
         },
 		async uploadtoken(){
 			let res = await uploadToken()
-			this.postData.upload_token=res.data
-			this.postData.token=res.data
+			if (res.code == ERR_OK) {
+			    //this.postData.upload_token=res.data
+			    this.postData.token=res.data
+			}
 		},
         // 添加路由
         async add () {
