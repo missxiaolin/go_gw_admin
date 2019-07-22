@@ -11,3 +11,15 @@ export function drawingSave (data) {
       params: data
     })
 }
+
+/**
+ * 获取token
+ * @param {*} data
+ */
+export function uploadToken (data) {
+    return fetch({
+      url: '/upload/token',
+      method: 'get',
+      params: data
+    })
+}

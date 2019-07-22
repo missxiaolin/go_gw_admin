@@ -51,20 +51,19 @@
                 </el-date-picker>
             </el-form-item>
 			
-			<el-form-item label="图纸" prop="drawing">
-				<el-upload
-				  class="upload-demo"
-				  action="http://192.168.41.99:9503/upload/images"
-				  :on-preview="handlePreview"
-				  :on-remove="handleRemove"
-				  :on-change="handeImage"
-				  :file-list="fileList"
-				  list-type="picture"
-				  multiple	>
-				  <el-button size="small" type="primary">点击上传</el-button>
-				  <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-				</el-upload>
-			</el-form-item>
+		<el-form-item label="图纸" prop="drawing">
+						  <el-upload
+			action="https://upload.qiniup.com"  
+			:drag="true"
+			:on-success="handleAvatarSuccess"
+			:on-error="handleError"
+			:before-upload="beforeAvatarUpload"
+			:data="postData"  multiple>
+			<i class="el-icon-upload"></i>
+			<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em>      </div>
+			<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不      超过500kb</div>
+		</el-upload>
+		</el-form-item>
 
             <el-form-item>
                 <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
@@ -73,16 +72,18 @@
         </el-form>
     </div>
 </template>
-
+<script src="https://unpkg.com/qiniu-js@<version>/dist/qiniu.min.js"></script>
 <script>
-import { drawingSave } from 'api/drawing'
+import { drawingSave,uploadToken } from 'api/drawing'
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
+
 
 export default {
     'name': 'role-lists',
     data () {
         return {
+			postData:{},
 			fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
 			 
 			finish_time: '',
@@ -124,6 +125,7 @@ export default {
                 id: 0,
                 material: '',
 				type:'',
+				drawing:'',
             },
 			//options:{},
 			groupOption:{},
@@ -134,8 +136,24 @@ export default {
         if (id != 0) {
             this.ruleForm.id = id
         }
+		this.uploadtoken()
     },
     methods: {
+		handleAvatarSuccess(response, file, fileList)
+		{
+			console.log(response,file,fileList)
+			this.ruleForm.drawing += response.key + ';'
+		},
+		handleError(err, file, fileList)
+		{
+			console.log(err,file,fileList)
+		},
+		beforeAvatarUpload(file)
+		{
+			this.postData.key = file.name;        // 通过设置key为文件名，上传到七牛中会显示对应的图片名
+			  // debugger
+			console.log(file)
+		},
 		//图片上传
 		handeImage(file, fileList) {
 			console.log(file, fileList)
@@ -162,10 +180,13 @@ export default {
         resetForm (formName) {
             this.$refs[formName].resetFields()
         },
+		async uploadtoken(){
+			let res = await uploadToken()
+			this.postData.upload_token=res.data
+			this.postData.token=res.data
+		},
         // 添加路由
         async add () {
-			this.ruleForm.drawing='https://www.images.com/images.png'
-            console.log(this.ruleForm)
             let res = await drawingSave(this.ruleForm)
             if (res.code == ERR_OK) {
                 this.$router.push({
