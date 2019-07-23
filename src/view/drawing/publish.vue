@@ -3,16 +3,19 @@
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
 			</el-form-item>
 			
-			<!-- <el-form-item label="图纸类型" prop="type">
-				 <el-select v-model="ruleForm.type" placeholder="请选择" multiple >
-					<el-option
-					  v-for="item in options"
-					  :key="item.value"
-					  :label="item.label"
-					  :value="item.value">
-					</el-option>
-				 </el-select>
-			</el-form-item> -->
+			<el-form-item label="需求标题" prop="title">
+			    <el-input name="title" type="text" v-model="ruleForm.title" placeholder="请输入相关需求"></el-input>
+			</el-form-item>
+			
+			<el-form-item label="截止日期" prop="publish_time">
+				<el-date-picker
+				  v-model="ruleForm.publish_time"
+				  type="datetime"
+				  placeholder="选择日期时间">
+				</el-date-picker>
+			    </el-date-picker>
+			</el-form-item>
+			
 			<el-form-item label="图纸材料" prop="material">
 			<el-select v-model="ruleForm.material" placeholder="请选择" multiple >
 			<el-option
@@ -23,7 +26,6 @@
 			</el-option>
 			</el-select>
 			</el-form-item>
-			
 
 			<el-form-item label="图纸类型" prop="type">
 			    <el-tree
@@ -42,7 +44,7 @@
 			
 
 
-            <el-form-item label="估价" prop="price">
+            <el-form-item label="预算价格" prop="price">
                 <el-input name="price" type="text" v-model="ruleForm.price" placeholder="估价"></el-input>
             </el-form-item>
 
@@ -50,7 +52,7 @@
 			    <el-input name="number" type="text" v-model="ruleForm.number"  placeholder="数量"></el-input>
 			</el-form-item>
 			
-				<el-form-item label="交货时间" prop="finish_time">
+			<el-form-item label="交货时间" prop="finish_time">
 				<el-date-picker
 				  v-model="ruleForm.finish_time"
 				  type="datetime"
@@ -82,7 +84,7 @@
 </template>
 <script src="https://unpkg.com/qiniu-js@<version>/dist/qiniu.min.js"></script>
 <script>
-import { drawingSave,uploadToken } from 'api/drawing'
+import { drawingSave,uploadToken,info } from 'api/drawing'
 import {drawingType} from 'api/drawingType'
 import {material} from 'api/material'
 import { ERR_OK } from '@/api/config'
@@ -102,11 +104,21 @@ export default {
 			postData:{},
 			finish_time: '',
             rules: {
-				/* type: [{
+				title: [{
 				    required: true,
 				    message: '请选择类型',
 				    trigger: 'blur'
-				}], */
+				}],
+				publish_time: [{
+				    required: true,
+				    message: '请选择类型',
+				    trigger: 'blur'
+				}],
+				type: [{
+				    required: true,
+				    message: '请选择类型',
+				    trigger: 'blur'
+				}], 
 				material: [{
 					required: true,
 					message: '请选择材料',
@@ -141,6 +153,7 @@ export default {
         let id = this.$route.params.id
         if (id != 0) {
             this.ruleForm.id = id
+			this.info(id)
         }
 		this.uploadtoken()
 		this.dwtype()
@@ -165,6 +178,17 @@ export default {
 			this.postData.key = file.name;        // 通过设置key为文件名，上传到七牛中会显示对应的图片名
 			  // debugger
 			console.log(file)
+		},
+		async info(id)
+		{
+			let params = {
+				'id':id
+			}
+			var res = await info(params)
+			if (res.code == ERR_OK) {
+			    this.ruleForm = res.data
+				console.log(res)
+			}
 		},
 		//图纸分类
 		async dwtype()
@@ -214,7 +238,7 @@ export default {
             let res = await drawingSave(this.ruleForm)
             if (res.code == ERR_OK) {
                 this.$router.push({
-                    path: '/drawing/admin'
+                    path: '/drawing/index'
                 })
             }
         }

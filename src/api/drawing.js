@@ -13,7 +13,54 @@ export function drawingSave (data) {
 }
 
 /**
- * 获取token
+ * 获取需求单
+ * @param {*} data
+ */
+export function drawingList (data) {
+	console.log(data)
+    return fetch({
+      url: '/drawing/index',
+      method: 'get',
+      params: data
+    })
+}
+/**
+ * 删除
+ */
+export function delDrawing (data) {
+	console.log(data)
+    return fetch({
+      url: '/drawing/delete',
+      method: 'get',
+      params: data
+    })
+}
+/**
+ * 发布
+ * @param {Object} data
+ */
+export function publish (data) {
+	console.log(data)
+    return fetch({
+      url: '/drawing/publish',
+      method: 'get',
+      params: data
+    })
+}
+/**
+ * info
+ * @param {Object} data
+ */
+export function info (data) {
+	console.log(data)
+    return fetch({
+      url: '/drawing/info',
+      method: 'get',
+      params: data
+    })
+}
+/**
+ * 获取qiniutoken
  * @param {*} data
  */
 export function uploadToken (data) {

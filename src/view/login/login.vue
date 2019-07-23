@@ -65,12 +65,11 @@ export default {
           this.loading = true
           login(this.loginForm).then(response => {
             if (response.code == ERR_OK) {
-              setToken(response.data.token)
-							request.headers.set('Auth-Token', response.data.token)
+              setToken(response.data)
               this.$router.push({ path: '/' })
               this.loading = false
             } else {
-              Message(userData.message)
+              //Message(userData.message)
               this.loading = false
             }
           })
