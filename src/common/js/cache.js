@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 const SidebarStatus = '__sidebarStatus__'
 
 // 登录token
-const TokenKey = 'Admin-Token'
+const TokenKey = 'Auth-Token'
 
 /**
  * 导航栏sidebarStatus

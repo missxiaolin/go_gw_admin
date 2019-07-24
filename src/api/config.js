@@ -1,7 +1,7 @@
 export const ERR_OK = 0
 
 // token非法
-export const ERROR_TOKEN_ILLEGAL = 501
+export const ERROR_TOKEN_ILLEGAL = 700
 
 // token过期
 export const ERROR_TOKEN_EXPIRE = 502

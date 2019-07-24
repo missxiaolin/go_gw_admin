@@ -58,7 +58,27 @@ export const asyncRouterMap = [
         name: '简述'
       }
     ]
-  }
+  },{
+			  path: '/drawing',
+			  component: layout,
+			  redirect: '/drawing/index',
+			  icon: 'icon-quanxian',
+			  noDropdown: false,
+			  name: '图纸管理',
+			  children: [
+			    {
+			      path: 'publish/:id',
+			      component: _import('drawing/publish'),
+			      name: '添加需求',
+						hidden: true
+			    },
+					{
+					  path: 'index',
+					  component: _import('drawing/index'),
+					  name: '需求单列表'
+					},
+			  ]
+			},
 ]
 
 export default new Router({

@@ -20,6 +20,7 @@ service.interceptors.request.use(config => {
   let token = getToken()
   if (token) {
     config.headers['TOKEN'] = token
+		config.headers['Auth-Token'] = token
   }
 
   // config.headers['Content-Type'] = 'application/json'
