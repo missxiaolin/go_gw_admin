@@ -27,7 +27,7 @@ export default {
     isCollapse () {
       let that = this
       setTimeout(() => {
-        that.isOpened = !this.opened
+        that.isOpened = this.opened
       }, 1000)
     }
   },
