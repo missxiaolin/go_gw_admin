@@ -69,13 +69,13 @@ export const asyncRouterMap = [
 			    {
 			      path: 'publish/:id',
 			      component: _import('drawing/publish'),
-			      name: '添加需求',
+			      name: '添加询价单',
 						hidden: true
 			    },
 					{
 					  path: 'index',
 					  component: _import('drawing/index'),
-					  name: '需求单列表'
+					  name: '询价单列表'
 					},
 			  ]
 			},

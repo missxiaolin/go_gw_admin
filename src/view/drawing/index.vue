@@ -25,7 +25,7 @@
 
             <div :className="'sub-navbar'" style="margin-bottom:30px;">
                 <template>
-                    <el-button style="margin-left: 10px;" type="primary" @click="drawingAdd(0)">添加需求</el-button>
+                    <el-button style="margin-left: 10px;" type="primary" @click="drawingAdd(0)">添加询价单</el-button>
                 </template>
             </div>
 
@@ -43,7 +43,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column label="标题" align="center">
+                <el-table-column label="询价单标题" align="center">
                     <template slot-scope="scope">
                         <span>{{scope.row.title}}</span>
                     </template>
@@ -119,7 +119,7 @@ export default {
             page: 1,
             searchForm: {
                 offset:0,
-                limit: 5,
+                limit: 10,
             },
 			options: [{
 				  id: '0',
@@ -159,6 +159,7 @@ export default {
 		    if (res.code == ERR_OK) {
 				this.listLoading = false
 		        this.list = res.data.items
+				this.total = res.data.count
 		    }
 		}, 
         // 分页

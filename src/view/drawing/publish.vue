@@ -3,8 +3,8 @@
         <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="120px">
 			</el-form-item>
 			
-			<el-form-item label="需求标题" prop="title">
-			    <el-input name="title" type="text" v-model="ruleForm.title" placeholder="请输入相关需求"></el-input>
+			<el-form-item label="询价单标题" prop="title">
+			    <el-input name="title" type="text" v-model="ruleForm.title" placeholder="请输入相关询价单"></el-input>
 			</el-form-item>
 			
 			<el-form-item label="截止日期" prop="publish_time">
@@ -14,6 +14,10 @@
 				  placeholder="选择日期时间">
 				</el-date-picker>
 			    </el-date-picker>
+			</el-form-item>
+			
+			<el-form-item label="交付周期" prop="lead_time">
+				<el-input name="lead_time" type="text" v-model="ruleForm.lead_time" placeholder="请输入整数"></el-input>
 			</el-form-item>
 			
 			<el-form-item label="图纸材料" prop="material">
@@ -74,7 +78,16 @@
 			<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不      超过500kb</div>
 		</el-upload>
 		</el-form-item>
-
+		
+		<el-form-item label="补充说明" prop="explain">
+			<el-input
+			  type="textarea"
+			  :rows="2"
+			  placeholder="请输入内容"
+			  v-model="ruleForm.explain">
+			</el-input>
+		</el-form-item>
+		
             <el-form-item>
                 <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -114,6 +127,11 @@ export default {
 				    message: '请选择类型',
 				    trigger: 'blur'
 				}],
+				lead_time: [{
+				    required: true,
+				    message: '请输入整数',
+				    trigger: 'blur'
+				}], 
 				type: [{
 				    required: true,
 				    message: '请选择类型',
