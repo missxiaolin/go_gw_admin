@@ -77,6 +77,31 @@ export const asyncRouterMap = [
 					  component: _import('drawing/index'),
 					  name: '询价单列表'
 					},
+					/* {
+					  path: 'offer',
+					  component: _import('drawing/offer'),
+					  name: '报价单列表'
+					}, */
+			  ]
+			},{
+			  path: '/order',
+			  component: layout,
+			  redirect: '/order/index',
+			  icon: 'icon-quanxian',
+			  noDropdown: false,
+			  name: '订单管理',
+			  children: [
+					{
+					  path: 'index',
+					  component: _import('order/index'),
+					  name: '订单列表'
+					},
+					{
+						path:'detail',
+						component:_import('order/detail'),
+						name:'订单详情',
+						hidden:true
+					}
 			  ]
 			},
 ]
