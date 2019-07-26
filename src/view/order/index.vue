@@ -2,27 +2,6 @@
     <div class="app-container">
         <div class="routes-main-container" style="margin-top:30px;">
 
-            <el-form ref="searchForm" :model="searchForm" label-width="80px">
-                <el-row>
-					<el-col :span="8">
-					    <el-form-item label="审核状态：" prop="status">
-						<el-select v-model="searchForm.status" filterable placeholder="请选择">
-									<el-option
-									  v-for="item in options"
-									  :key="item.id"
-									  :label="item.name"
-									  :value="item.id">
-									</el-option>
-						</el-select>
-						</el-form-item>
-					</el-col>
-                </el-row>
-                <el-row type="flex" justify="center">
-                    <el-button type="info" @click="resetForm('searchForm')">重置</el-button>
-                    <el-button type="primary" @click="submitForm('searchForm')">搜索</el-button>
-                </el-row>
-            </el-form>
-
             <div :className="'sub-navbar'" style="margin-bottom:30px;"> 
             </div>
 

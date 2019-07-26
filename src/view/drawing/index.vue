@@ -164,7 +164,6 @@ export default {
 		}, 
         // 分页
         handleCurrentChange (currentPage) {
-			console.log(121)
 			console.log(this.searchForm.limit)
             Object.assign(this.searchForm, {
                 offset: (currentPage - 1) * this.searchForm.limit
