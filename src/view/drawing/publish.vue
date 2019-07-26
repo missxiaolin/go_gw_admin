@@ -20,7 +20,7 @@
 				<el-input name="lead_time" type="text" v-model="ruleForm.lead_time" placeholder="请输入整数"></el-input>
 			</el-form-item>
 			
-			<el-form-item label="图纸材料" prop="material">
+			<el-form-item label="材料" prop="material">
 			<el-select v-model="ruleForm.material" placeholder="请选择" multiple >
 			<el-option
 			v-for="item in material"
@@ -31,7 +31,7 @@
 			</el-select>
 			</el-form-item>
 
-			<el-form-item label="图纸类型" prop="type">
+			<el-form-item label="工艺类型" prop="type">
 			    <el-tree
 					@check-change="getChecked"
 					default-expand-all	
