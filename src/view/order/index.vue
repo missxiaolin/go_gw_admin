@@ -135,7 +135,7 @@ export default {
         // 分页
         handleCurrentChange (currentPage) {
             Object.assign(this.searchForm, {
-                offset: currentPage - 1 
+                offset: (currentPage - 1) * this.searchForm.limit
             })
             this.orderIndex()
         },
