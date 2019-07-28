@@ -103,6 +103,20 @@ export const asyncRouterMap = [
 						hidden:true
 					}
 			  ]
+			},{
+			  path: '/user',
+			  component: layout,
+			  redirect: '/user/index',
+			  icon: 'icon-quanxian',
+			  noDropdown: false,
+			  name: '个人中心',
+			  children: [
+					{
+					  path: 'info',
+					  component: _import('user/info'),
+					  name: '个人中心'
+					},
+			  ]
 			},
 ]
 
