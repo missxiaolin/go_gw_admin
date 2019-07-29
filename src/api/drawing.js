@@ -70,3 +70,27 @@ export function uploadToken (data) {
       params: data
     })
 }
+
+export function offerList (data) {
+  return fetch({
+    url: '/offer/index',
+    method: 'get',
+    params: data
+  })
+}
+
+export function buildOrder (data) {
+  return fetch({
+    url: '/order/save',
+    method: 'post',
+    data: data
+  })
+}
+
+export function getOffer(data) {
+  return fetch({
+    url: '/order/offer',
+    method: 'get',
+    params: data
+  })
+}
