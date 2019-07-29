@@ -1,22 +1,22 @@
 <template>
     <div>
-        <div id="editor" ref="editor"></div>
+        <div>
+            <tinymce :height='200' v-model="content"></tinymce>
+        </div>
+        <div class='editor-content' v-html='content'></div>
     </div>
 </template>
 
 <script>
+import Tinymce from "@/base/Tinymce";
+
 export default {
     name: "new-add",
-    mounted () {
-        this.initEditor()
-    },
-    methods: {
-        initEditor () {
-            UE.getEditor('editor', {
-                initialFrameWidth: '100%',
-                initialFrameHeight: 250
-            })
-        }
-    }
+    components: { Tinymce },
+    data() {
+        return {
+        content: "Tinymce"
+    };
+  }
 }
 </script>
