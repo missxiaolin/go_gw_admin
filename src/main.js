@@ -10,6 +10,15 @@ import 'element-ui/lib/theme-chalk/index.css'
 // import VueLazyload from 'vue-lazyload'
 import router from './router'
 
+// 百度富文本编辑器
+// import'../static/Ueditor/ueditor.config.js'
+
+// import'../static/Ueditor/ueditor.all.min.js'
+
+// import'../static/Ueditor/lang/zh-cn/zh-cn.js'
+
+// import'../static/Ueditor/ueditor.parse.min.js'
+
 // 过滤器
 import * as filters from './filters' // global filters
 

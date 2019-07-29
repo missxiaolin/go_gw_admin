@@ -58,6 +58,19 @@ export const asyncRouterMap = [
         name: '简述'
       }
     ]
+  }, {
+    path: '/new',
+    component: layout,
+    redirect: '/new/index',
+    icon: 'icon-xuanti-neirongjianshu',
+    noDropdown: true,
+    children: [
+      {
+        path: 'index',
+        component: _import('new/add'),
+        name: '添加文章'
+      }
+    ]
   }
 ]
 
