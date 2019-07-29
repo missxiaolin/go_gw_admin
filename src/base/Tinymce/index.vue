@@ -2,7 +2,7 @@
     <div class='tinymce-container editor-container'>
       <textarea class='tinymce-textarea' :id="tinymceId"></textarea>
       <div class="editor-custom-btn-container">
-      <editorImage  color="#20a0ff" :successCBK="setImg" class="editor-upload-btn"></editorImage>
+      <editorImage  color="#20a0ff" @successCBK="setImg" class="editor-upload-btn"></editorImage>
     </div>
   </div>
 </template>
@@ -125,8 +125,16 @@ export default {
     });
   },
   methods: {
-    setImg () {
-      
+    // 塞入图片
+    setImg (images) {
+      let val = this.value
+      images.forEach(item => {
+        val = val + `<img src="http://pic25.nipic.com/20121112/9252150_150552938000_2.jpg" data-mce-src="">`
+      })
+      console.log(val)
+      this.$nextTick(() =>
+        window.tinymce.get(this.tinymceId).setContent(val)
+      );
     }
   }
 };
