@@ -60,7 +60,7 @@ export default {
       this.files = []
     },
     handleSuccess(response, file) {
-      this.files.push(`http://missxiaolin.com/${response.key}`)
+      this.files.push(`${process.env.QINIU_URL}${response.key}`)
     },
     handleRemove(file) {
       const uid = file.uid;
