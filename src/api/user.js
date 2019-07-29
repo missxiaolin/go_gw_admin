@@ -11,3 +11,15 @@ export function userInfo(query)
     param: query
   });
 }
+
+/**
+ * 申请提现
+ */
+export function userApply(query)
+{
+  return fetch({
+    url: '/cash/apply',
+    method: 'post',
+    data: query
+  });
+}
