@@ -131,7 +131,6 @@ export default {
       images.forEach(item => {
         val = val + `<img src="http://pic25.nipic.com/20121112/9252150_150552938000_2.jpg" data-mce-src="">`
       })
-      console.log(val)
       this.$nextTick(() =>
         window.tinymce.get(this.tinymceId).setContent(val)
       );
