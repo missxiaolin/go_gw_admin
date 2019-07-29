@@ -58,71 +58,7 @@ export const asyncRouterMap = [
         name: '简述'
       }
     ]
-  },{
-			  path: '/drawing',
-			  component: layout,
-			  redirect: '/drawing/index',
-			  icon: 'icon-quanxian',
-			  noDropdown: false,
-			  name: '图纸管理',
-			  children: [
-			    {
-			      path: 'publish/:id',
-			      component: _import('drawing/publish'),
-			      name: '添加询价单',
-						hidden: true
-			    },
-					{
-					  path: 'index',
-					  component: _import('drawing/index'),
-					  name: '询价单列表'
-					},
-					/* {
-					  path: 'offer',
-					  component: _import('drawing/offer'),
-					  name: '报价单列表'
-					}, */
-			  ]
-			},{
-			  path: '/order',
-			  component: layout,
-			  redirect: '/order/index',
-			  icon: 'icon-quanxian',
-			  noDropdown: false,
-			  name: '订单管理',
-			  children: [
-					{
-					  path: 'index',
-					  component: _import('order/index'),
-					  name: '订单列表'
-					},
-					{
-						path:'detail',
-						component:_import('order/detail'),
-						name:'订单详情',
-						hidden:true
-					}
-			  ]
-			},{
-			  path: '/user',
-			  component: layout,
-			  redirect: '/user/index',
-			  icon: 'icon-quanxian',
-			  noDropdown: false,
-			  name: '个人中心',
-			  children: [
-					{
-					  path: 'info',
-					  component: _import('user/info'),
-					  name: '个人中心'
-					},{
-					  path: 'wallet',
-					  component: _import('user/wallet'),
-					  name: '申请提现',
-						hidden:true,
-					},
-			  ]
-			},
+  }
 ]
 
 export default new Router({
