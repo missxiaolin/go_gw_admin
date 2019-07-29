@@ -2,19 +2,17 @@
     <div class='tinymce-container editor-container'>
       <textarea class='tinymce-textarea' :id="tinymceId"></textarea>
       <div class="editor-custom-btn-container">
-      <editorImage  color="#20a0ff" @successCBK="setImg" class="editor-upload-btn"></editorImage>
+      
     </div>
   </div>
 </template>
 
 <script>
-import editorImage from "./components/editorImage";
+// import editorImage from "./components/editorImage";
+// import { setTimeout } from 'timers';
 
 export default {
   name: "tinymce",
-  components: { 
-    editorImage
-  },
   props: {
     id: {
       type: String
@@ -51,6 +49,7 @@ export default {
   },
   watch: {
     value(val) {
+      console.log(val)
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() =>
           window.tinymce.get(this.tinymceId).setContent(val)
@@ -123,18 +122,6 @@ export default {
         });
       }
     });
-  },
-  methods: {
-    // 塞入图片
-    setImg (images) {
-      let val = this.value
-      images.forEach(item => {
-        val = val + `<img src="${item}" data-mce-src="">`
-      })
-      this.$nextTick(() =>
-        window.tinymce.get(this.tinymceId).setContent(val)
-      );
-    }
   }
 };
 </script>
@@ -152,8 +139,5 @@ export default {
   right: 15px;
   /*z-index: 2005;*/
   top: 18px;
-}
-.editor-upload-btn {
-  display: inline-block;
 }
 </style>
