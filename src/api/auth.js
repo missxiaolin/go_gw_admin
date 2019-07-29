@@ -11,3 +11,15 @@ export function login (query) {
     data: query
   })
 }
+
+/**
+ * 获取七牛token
+ * @param {*} query
+ */
+export function getQiNiuToken (query) {
+  return fetch({
+    url: '/qiniu/get/token',
+    method: 'get',
+    params: query
+  })
+}

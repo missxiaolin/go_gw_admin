@@ -5,12 +5,13 @@
         <el-dialog :visible.sync="dialogVisible">
             <el-upload
                     class="editor-slide-upload"
-                    action="https://httpbin.org/post"
+                    action="https://upload-z2.qiniup.com"
                     :multiple="true"
                     :file-list="fileList"
                     :show-file-list="true"
                     list-type="picture-card"
                     :on-remove="handleRemove"
+                    :data="postData"
                     :on-success="handleSuccess"
                     :before-upload="beforeUpload">
                 <el-button size="small" type="primary">点击上传</el-button>
@@ -21,6 +22,8 @@
     </div>
 </template>
 <script>
+import { getQiNiuToken } from '../../../api/auth'
+
 export default {
   name: "editorSlideUpload",
   props: {
@@ -33,8 +36,15 @@ export default {
     return {
       dialogVisible: false,
       listObj: {},
-      fileList: []
+      fileList: [],
+      postData: {},
+      files: []
     };
+  },
+  mounted () {
+    getQiNiuToken().then(res => {
+      this.postData.token=res.data
+    })
   },
   methods: {
     checkAllSuccess() {
@@ -43,28 +53,14 @@ export default {
       );
     },
     handleSubmit() {
-      const arr = Object.keys(this.listObj).map(v => this.listObj[v]);
-      if (!this.checkAllSuccess()) {
-        this.$message("请等待所有图片上传成功 或 出现了网络问题，请刷新页面重新上传！");
-        return;
-      }
-      // console.log(arr);
-      
-      this.$emit("successCBK", arr);
+      this.$emit("successCBK", this.files);
       this.listObj = {};
       this.fileList = [];
       this.dialogVisible = false;
+      this.files = []
     },
     handleSuccess(response, file) {
-      const uid = file.uid;
-      const objKeyArr = Object.keys(this.listObj);
-      for (let i = 0, len = objKeyArr.length; i < len; i++) {
-        if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file;
-          this.listObj[objKeyArr[i]].hasSuccess = true;
-          return;
-        }
-      }
+      this.files.push(`http://missxiaolin.com/${response.key}`)
     },
     handleRemove(file) {
       const uid = file.uid;
@@ -77,23 +73,7 @@ export default {
       }
     },
     beforeUpload(file) {
-      const _self = this;
-      const _URL = window.URL || window.webkitURL;
-      const fileName = file.uid;
-      this.listObj[fileName] = {};
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = _URL.createObjectURL(file);
-        img.onload = function() {
-          _self.listObj[fileName] = {
-            hasSuccess: false,
-            uid: file.uid,
-            width: this.width,
-            height: this.height
-          };
-        };
-        resolve(true);
-      });
+      this.postData.key = file.name;        // 通过设置key为文件名，上传到七牛中会显示对应的图片名
     }
   }
 };

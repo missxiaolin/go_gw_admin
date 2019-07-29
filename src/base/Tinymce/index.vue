@@ -129,7 +129,7 @@ export default {
     setImg (images) {
       let val = this.value
       images.forEach(item => {
-        val = val + `<img src="http://pic25.nipic.com/20121112/9252150_150552938000_2.jpg" data-mce-src="">`
+        val = val + `<img src="${item}" data-mce-src="">`
       })
       this.$nextTick(() =>
         window.tinymce.get(this.tinymceId).setContent(val)

@@ -1,4 +1,4 @@
-export const ERR_OK = 0
+export const ERR_OK = true
 
 // token非法
 export const ERROR_TOKEN_ILLEGAL = 700
