@@ -115,6 +115,11 @@ export const asyncRouterMap = [
 					  path: 'info',
 					  component: _import('user/info'),
 					  name: '个人中心'
+					},{
+					  path: 'wallet',
+					  component: _import('user/wallet'),
+					  name: '申请提现',
+						hidden:true,
 					},
 			  ]
 			},
