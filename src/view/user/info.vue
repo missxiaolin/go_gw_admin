@@ -23,11 +23,16 @@
 							<el-input v-model="form.mobile"></el-input>
 						</el-form-item>
 						
+						<el-form-item label="余额">
+							<el-input v-model="form.wallet"></el-input>
+						</el-form-item>
+						
 						<el-form-item label="状态">
 							<el-input v-if="form.user_auth.status==1" value="审核通过"></el-input>
 							<el-input v-else-if="form.user_auth.status==2" value="审核未通过"></el-input>
 							<el-input v-else="form.user_auth.status" value="已提交"></el-input>
 						</el-form-item>
+						
 				</el-form>
 				
 		</div>
