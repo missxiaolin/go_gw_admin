@@ -7,7 +7,7 @@ import fetch from '@/common/js/fetch'
 export function getCategoryList (query) {
   return fetch({
     url: '/admin/category/list',
-    method: 'post',
-    data: query
+    method: 'get',
+    params: query
   })
 }
