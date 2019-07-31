@@ -6,7 +6,7 @@ import fetch from '@/common/js/fetch'
  */
 export function login (query) {
   return fetch({
-    url: '/merchant/login',
+    url: '/admin/user/login',
     method: 'post',
     data: query
   })

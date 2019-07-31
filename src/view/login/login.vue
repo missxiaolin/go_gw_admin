@@ -2,10 +2,9 @@
   <div class="login-container">
     <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-			<h3 class="title">北瑟管理系统</h3>
       <h3 class="title">登录</h3>
-      <el-form-item prop="mobile">
-        <el-input name="mobile" type="text" v-model="loginForm.mobile" autoComplete="on" placeholder="mobile" />
+      <el-form-item prop="name">
+        <el-input name="name" type="text" v-model="loginForm.name" autoComplete="on" placeholder="name" />
       </el-form-item>
       <el-form-item prop="password">
         <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"
@@ -32,7 +31,7 @@ export default {
   data () {
     const validateUsername = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入手机号码'))
+        callback(new Error('请输入用户名称'))
       } else {
         callback()
       }
@@ -46,11 +45,11 @@ export default {
     }
     return {
       loginForm: {
-        mobile: '',
+        name: '',
         password: ''
       },
       loginRules: {
-        mobile: [
+        name: [
           { required: true, trigger: 'blur', validator: validateUsername }
         ],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
@@ -64,12 +63,12 @@ export default {
         if (valid) {
           this.loading = true
           login(this.loginForm).then(response => {
-            if (response.code == ERR_OK) {
+            if (response.success == ERR_OK) {
               setToken(response.data)
               this.$router.push({ path: '/' })
               this.loading = false
             } else {
-              //Message(userData.message)
+              Message(response.msg)
               this.loading = false
             }
           })
