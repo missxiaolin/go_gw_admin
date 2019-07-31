@@ -60,6 +60,20 @@ export const asyncRouterMap = [
         hidden: true
       }
     ]
+  }, {
+    path: '/category',
+    component: layout,
+    redirect: '/category/list',
+    icon: 'icon-xuanti-neirongjianshu',
+    noDropdown: false,
+    name: "分类",
+    children: [
+      {
+        path: 'add',
+        component: _import('category/list'),
+        name: '分类列表',
+      }
+    ]
   }
 ]
 

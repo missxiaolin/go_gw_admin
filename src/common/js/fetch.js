@@ -3,7 +3,6 @@ import { Message, MessageBox } from 'element-ui'
 import { getToken } from 'common/js/cache'
 import * as error from 'api/config'
 import routes from '@/router'
-import Qs from 'qs'
 
 // 创建axios实例
 const service = axios.create({
@@ -13,9 +12,6 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
-  if (config.method === 'post' && typeof config.data === 'string') {
-    config.data = Qs.stringify(config.data)
-  }
   // Do something before request is sent
   // let token = getToken()
   // if (token) {
@@ -24,7 +20,7 @@ service.interceptors.request.use(config => {
 
   // config.headers['Content-Type'] = 'application/json'
   // config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
-  // config.headers['Content-Type'] = 'multipart/form-data'
+  config.headers['Content-Type'] = 'multipart/form-data'
   return config
 }, error => {
   // Do something with request error
