@@ -69,7 +69,7 @@ export const asyncRouterMap = [
     name: "分类",
     children: [
       {
-        path: 'add',
+        path: 'list',
         component: _import('category/list'),
         name: '分类列表',
       }
