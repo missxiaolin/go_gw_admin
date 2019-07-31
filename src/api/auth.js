@@ -18,7 +18,7 @@ export function login (query) {
  */
 export function getQiNiuToken (query) {
   return fetch({
-    url: '/qiniu/get/token',
+    url: '/admin/qiniu/get/token',
     method: 'get',
     params: query
   })

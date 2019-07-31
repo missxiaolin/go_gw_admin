@@ -102,7 +102,6 @@ export default {
                     cal([])
                 }
             })
-
         },
         // 二级列表
         load(tree, treeNode, resolve) {
