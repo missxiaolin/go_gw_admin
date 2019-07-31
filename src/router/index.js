@@ -46,21 +46,6 @@ export const asyncRouterMap = [
       }
     ]
   }, {
-    path: '/new',
-    component: layout,
-    redirect: '/new/add',
-    icon: 'icon-xuanti-neirongjianshu',
-    noDropdown: false,
-    name: "文章",
-    children: [
-      {
-        path: 'add',
-        component: _import('new/add'),
-        name: '添加文章',
-        hidden: true
-      }
-    ]
-  }, {
     path: '/category',
     component: layout,
     redirect: '/category/list',
@@ -72,6 +57,30 @@ export const asyncRouterMap = [
         path: 'list',
         component: _import('category/list'),
         name: '分类列表',
+      }, {
+        path: 'create',
+        component: _import('category/create'),
+        name: '分类操作',
+        hidden: true
+      }
+    ]
+  }, {
+    path: '/new',
+    component: layout,
+    redirect: '/new/list',
+    icon: 'icon-xuanti-neirongjianshu',
+    noDropdown: false,
+    name: "文章",
+    children: [
+      {
+        path: 'list',
+        component: _import('new/list'),
+        name: '文章列表',
+      }, {
+        path: 'add',
+        component: _import('new/add'),
+        name: '文章操作',
+        hidden: true
       }
     ]
   }
