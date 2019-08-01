@@ -47,3 +47,15 @@ export function getCategoryInfo (query) {
     params: query
   })
 }
+
+/**
+ * 全部分类
+ * @param {*} query 
+ */
+export function getCategoryAll (query) {
+  return fetch({
+    url: '/admin/category/get/all',
+    method: 'get',
+    params: query
+  })
+}

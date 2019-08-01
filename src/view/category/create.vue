@@ -138,6 +138,10 @@ export default {
                 Message(res.msg)
             }
         },
+        // 重置
+        resetForm (formName) {
+            this.$refs[formName].resetFields()
+        }
     }
 }
 </script>
