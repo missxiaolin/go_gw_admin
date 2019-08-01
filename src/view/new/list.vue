@@ -41,7 +41,6 @@
 <script>
 import { getNewList } from "api/new"
 import { ERR_OK } from '@/api/config'
-import { Message } from 'element-ui'
 
 export default {
     name: "new-list",
@@ -62,12 +61,11 @@ export default {
         // 获取列表
         async list () {
             let res = await getNewList(this.searchForm)
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.lists = res.data.item
+                this.count = res.data.count
             }
-            this.lists = res.data.item
-            this.count = res.data.count
+            
         },
         // 分页
         handleDialogRolesPageChange (val) {

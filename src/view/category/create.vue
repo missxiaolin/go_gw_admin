@@ -29,7 +29,6 @@
 <script>
 import { getCategoryList, createCategory, updateCategory, getCategoryInfo } from "api/category"
 import { ERR_OK } from '@/api/config'
-import { Message } from 'element-ui'
 
 export default {
     name: 'category-add',
@@ -103,20 +102,16 @@ export default {
         // 创建
         async add () {
             let res = await createCategory(this.ruleForm)
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.goList()
             }
-            this.goList()
         },
         // 修改
         async update () {
             let res = await updateCategory(this.ruleForm)
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.goList()
             }
-            this.goList()
         },
         goList () {
             this.$router.push({
@@ -134,8 +129,6 @@ export default {
                 this.ruleForm.name = res.data.name
                 this.ruleForm.pid = res.data.pid
                 this.ruleForm.status = res.data.status
-            } else {
-                Message(res.msg)
             }
         },
         // 重置

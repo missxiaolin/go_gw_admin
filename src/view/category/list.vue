@@ -48,7 +48,6 @@
 <script>
 import { getCategoryList } from "api/category"
 import { ERR_OK } from '@/api/config'
-import { Message } from 'element-ui'
 
 export default {
     name: "category-list",

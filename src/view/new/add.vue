@@ -46,7 +46,6 @@
 import { getCategoryAll } from "api/category"
 import { newAdd, newUpdate, newGetInfo } from "api/new"
 import { ERR_OK } from '@/api/config'
-import { Message } from 'element-ui'
 import Tinymce from "@/base/Tinymce";
 import editorImage from "@/base/Tinymce/components/editorImage";
 
@@ -113,11 +112,10 @@ export default {
         // 获取全部分类
         async getCategory () {
             let res = await getCategoryAll()
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.categoryList = res.data
             }
-            this.categoryList = res.data
+            
         },
         // 塞入图片
         setImg (images) {
@@ -147,20 +145,17 @@ export default {
         // 创建
         async add () {
             let res = await newAdd(this.ruleForm)
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.goList()
             }
-            this.goList()
         },
         // 修改
         async update () {
             let res = await newUpdate(this.ruleForm)
-            if (res.success != ERR_OK) {
-                Message(res.msg)
-                return
+            if (res.success == ERR_OK) {
+                this.goList()
             }
-            this.goList()
+            
         },
         goList () {
             this.$router.push({
@@ -182,8 +177,6 @@ export default {
                 this.ruleForm.keywords = res.data.keywords
                 this.ruleForm.description = res.data.description
                 this.ruleForm.status = res.data.status
-            } else {
-                Message(res.msg)
             }
         },
         // 重置

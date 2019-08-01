@@ -13,10 +13,11 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(config => {
   // Do something before request is sent
-  // let token = getToken()
-  // if (token) {
-  //   config.headers['TOKEN'] = token
-  // }
+  let token = getToken()
+  console.log(token)
+  if (token) {
+    config.headers['TOKEN'] = token
+  }
 
   // config.headers['Content-Type'] = 'application/json'
   // config.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8'
@@ -33,18 +34,17 @@ service.interceptors.response.use(
   response => {
     let res = response.data
     
-    // if (res.code == error.ERROR_TOKEN_EXPIRE || res.code == error.ERROR_TOKEN_ILLEGAL) {
-    //   MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '提示', { // token过期情况
-    //     confirmButtonText: '重新登录',
-    //     cancelButtonText: '取消',
-    //     type: 'warning'
-    //   }).then(() => {
-    //     routes.push({name: 'login'})
-    //   })
-    // } 
-    // else if (res.code == error.ERROR_AUTHORITY) { // 权限
-      // routes.push({name: '401'})
-    // }
+    if (res.success == false || res.ErrorCode == error.ERROR_TOKEN_ILLEGAL) {
+      MessageBox.confirm('你已被登出，可以取消继续留在该页面，或者重新登录', '提示', { // token过期情况
+        confirmButtonText: '重新登录',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        routes.push({name: 'login'})
+      })
+    }else if (res.success == false) {
+      Message(res.msg)
+    }
     return Promise.resolve(res)
   },
   error => {
