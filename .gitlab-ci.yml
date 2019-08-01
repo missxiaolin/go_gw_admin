@@ -5,7 +5,7 @@ stages:
   - deploy
 
 variables:
-  PROJECT_NAME: admin_merchant
+  PROJECT_NAME: bs_admin
   REGISTRY_URL: swr.cn-east-2.myhuaweicloud.com/besthird
 
 build_test_docker:

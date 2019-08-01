@@ -1,7 +1,7 @@
 {
-    "name": "admin_merchant",
+    "name": "bs_gw_admin",
     "version": "1.0.0",
-    "description": "Adnub Merchant",
+    "description": "Adnub GW ADMIN",
     "author": "xiaolin <462441355@qq.com>",
     "private": true,
     "scripts": {

@@ -1,12 +1,12 @@
 version: '3.7'
 services:
-  admin_merchant:
+  bs_gw_admin:
     image: $REGISTRY_URL/$PROJECT_NAME:test
     environment:
-      - "APP_PROJECT=admin_merchant"
+      - "APP_PROJECT=bs_gw_admin"
       - "APP_ENV=test"
     ports:
-      - 8003:3000
+      - 8010:3000
     deploy:
       replicas: 1
       restart_policy:
