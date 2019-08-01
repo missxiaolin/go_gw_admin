@@ -44,6 +44,7 @@
 
 <script>
 import { getCategoryAll } from "api/category"
+import { newAdd, newUpdate, newGetInfo } from "api/new"
 import { ERR_OK } from '@/api/config'
 import { Message } from 'element-ui'
 import Tinymce from "@/base/Tinymce";
@@ -104,6 +105,9 @@ export default {
     },
     mounted () {
         this.getCategory()
+        if (!!this.$route.query.id){
+            this.getInfo(this.$route.query.id)
+        }
     },
     methods: {
         // 获取全部分类
@@ -129,9 +133,9 @@ export default {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
                     if (this.ruleForm.id) {
-                        // self.update()
+                        self.update()
                     } else {
-                        // self.add()
+                        self.add()
                     }
                 
                 } else {
@@ -139,6 +143,48 @@ export default {
                     return false
                 }
             })
+        },
+        // 创建
+        async add () {
+            let res = await newAdd(this.ruleForm)
+            if (res.success != ERR_OK) {
+                Message(res.msg)
+                return
+            }
+            this.goList()
+        },
+        // 修改
+        async update () {
+            let res = await newUpdate(this.ruleForm)
+            if (res.success != ERR_OK) {
+                Message(res.msg)
+                return
+            }
+            this.goList()
+        },
+        goList () {
+            this.$router.push({
+                path: "/new/list",
+            })
+        },
+        // 获取详情
+        async getInfo (id) {
+            let param = {
+                id: id
+            }
+            let res = await newGetInfo(param)
+            if (res.success == ERR_OK) {
+                this.ruleForm.id = res.data.id
+                this.ruleForm.cid = res.data.cid
+                this.ruleForm.title = res.data.title
+                this.ruleForm.author = res.data.author
+                this.ruleForm.content = res.data.content
+                this.ruleForm.keywords = res.data.keywords
+                this.ruleForm.description = res.data.description
+                this.ruleForm.status = res.data.status
+            } else {
+                Message(res.msg)
+            }
         },
         // 重置
         resetForm (formName) {

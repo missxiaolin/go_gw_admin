@@ -11,3 +11,39 @@ export function getNewList (query) {
     params: query
   })
 }
+
+/**
+ * 添加文章
+ * @param {*} query
+ */
+export function newAdd (query) {
+  return fetch({
+    url: '/admin/new/add',
+    method: 'post',
+    data: query
+  })
+}
+
+/**
+ * 修改文章
+ * @param {*} query
+ */
+export function newUpdate (query) {
+  return fetch({
+    url: '/admin/new/update',
+    method: 'post',
+    data: query
+  })
+}
+
+/**
+ * 获取文章
+ * @param {*} query
+ */
+export function newGetInfo (query) {
+  return fetch({
+    url: '/admin/new/info',
+    method: 'get',
+    params: query
+  })
+}
