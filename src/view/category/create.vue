@@ -15,8 +15,8 @@
                 </el-select>
             </el-form-item> 
             <el-form-item label="状态" prop="status">
-                <el-radio v-model="ruleForm.status" :label="1">启用</el-radio>
-                <el-radio v-model="ruleForm.status" :label="0">禁用</el-radio>
+                <el-radio v-model="ruleForm.status" :label="2">启用</el-radio>
+                <el-radio v-model="ruleForm.status" :label="1">禁用</el-radio>
             </el-form-item> 
             <el-form-item>
                 <el-button type="primary" @click="onSubmit('ruleForm')">保存</el-button>
@@ -46,7 +46,7 @@ export default {
                 id: 0,
                 name: "",
                 pid: 0,
-                status: 1
+                status: 2
             }
         }
     },

@@ -24,8 +24,8 @@
                 <el-input name="description" type="text" v-model="ruleForm.description" placeholder="描述"></el-input>
             </el-form-item>
             <el-form-item label="状态" prop="status">
-                <el-radio v-model="ruleForm.status" :label="1">启用</el-radio>
-                <el-radio v-model="ruleForm.status" :label="0">禁用</el-radio>
+                <el-radio v-model="ruleForm.status" :label="2">启用</el-radio>
+                <el-radio v-model="ruleForm.status" :label="1">禁用</el-radio>
             </el-form-item> 
             <el-form-item label="内容" prop="content">
                 <div class="text">
@@ -97,7 +97,7 @@ export default {
                 content: "",
                 keywords: "",
                 description: "",
-                status: 1
+                status: 2
             },
             categoryList: []
         };

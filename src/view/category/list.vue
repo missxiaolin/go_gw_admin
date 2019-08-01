@@ -24,7 +24,7 @@
             </el-table-column>
             <el-table-column label="状态" align="center">
                 <template slot-scope="scope">
-                    <span v-if="scope.row.status == 1">启用</span>
+                    <span v-if="scope.row.status == 2">启用</span>
                     <span v-else>禁用</span>
                 </template>
             </el-table-column>
