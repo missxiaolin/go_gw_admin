@@ -14,7 +14,6 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   // Do something before request is sent
   let token = getToken()
-  console.log(token)
   if (token) {
     config.headers['TOKEN'] = token
   }
@@ -42,6 +41,7 @@ service.interceptors.response.use(
       }).then(() => {
         routes.push({name: 'login'})
       })
+      return Promise.reject(res);
     }else if (res.success == false) {
       Message(res.msg)
     }
@@ -49,11 +49,11 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error)// for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
     return Promise.reject(error)
   }
 )
